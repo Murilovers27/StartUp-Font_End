@@ -1,0 +1,137 @@
+/* src/app/contatos/page.module.css */
+
+.teamPage {
+  width: 100%;
+  padding: 3rem 1rem;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-light); /* Fundo cinza claro */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--primary-color); /* Roxo */
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  max-width: 700px;
+  margin: 0 auto; /* Centraliza o subtítulo */
+}
+
+/* Grade para os cards dos membros */
+.teamGrid {
+  display: grid;
+  /* Cria colunas responsivas, tentando caber 3 em telas maiores */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px; /* Limita a largura da grade */
+  margin: 0 auto; /* Centraliza a grade */
+}
+
+/* Card de cada membro */
+.memberCard {
+  background-color: var(--card-background);
+  border-radius: 16px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centraliza tudo */
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.memberCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: #e0e0e0; /* Placeholder cinza */
+  margin-bottom: 1rem;
+  display: flex; /* Para centralizar um ícone ou imagem */
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Caso use Image */
+  border: 3px solid var(--primary-color); /* Borda roxa no avatar */
+}
+
+.avatar img { /* Estilo se usar <img> ou <Image> */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.memberName {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.25rem;
+}
+
+.memberRole {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--primary-color); /* Roxo */
+  margin-bottom: 1.5rem;
+}
+
+/* Container dos botões de link */
+.memberLinks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem; /* Espaço entre os botões */
+  width: 100%; /* Faz os botões ocuparem a largura */
+}
+
+/* Estilo base do botão de link */
+.linkButton {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centraliza ícone e texto */
+  gap: 0.6rem;
+  padding: 0.7rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  text-decoration: none;
+  color: white; /* Cor padrão do texto */
+  transition: opacity 0.2s ease, transform 0.1s ease;
+  width: 100%; /* Garante largura total */
+  box-sizing: border-box; /* Inclui padding na largura */
+}
+
+.linkButton:hover {
+  opacity: 0.9;
+  transform: scale(1.02); /* Leve aumento no hover */
+}
+
+.linkIcon {
+  font-size: 1.1rem;
+}
+
+/* Cores específicas para cada tipo de link */
+.linkedin {
+  background-color: #0077B5; /* Azul LinkedIn */
+}
+
+.instagram {
+  background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); /* Gradiente Instagram */
+}
+
+.contact {
+  background-color: var(--secondary-color); /* Amarelo/Laranja */
+  color: var(--text-dark); /* Texto escuro no botão claro */
+}

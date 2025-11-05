@@ -1,0 +1,163 @@
+/* src/app/planos/page.module.css */
+
+.plansPage {
+  width: 100%;
+  padding: 3rem 1rem;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-light); /* Fundo cinza claro */
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+
+.title {
+  font-size: 2.8rem;
+  font-weight: 600;
+  color: var(--primary-color); /* Roxo */
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1.2rem;
+  color: var(--text-light);
+  max-width: 600px;
+  margin: 0 auto; /* Centraliza o subtítulo */
+}
+
+/* Grade para os cards de planos */
+.plansGrid {
+  display: grid;
+  /* Cria colunas responsivas, tentando caber 3 em telas maiores */
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto; /* Centraliza a grade */
+}
+
+/* Estilo base de cada card de plano */
+.planCard {
+  background-color: var(--card-background);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border: 2px solid transparent; /* Para o destaque */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.planCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+/* Estilo para um plano destacado (ex: "Mais Popular") */
+.featuredCard {
+  border-color: var(--primary-color); /* Borda roxa */
+  transform: scale(1.03); /* Levemente maior */
+  box-shadow: 0 8px 30px rgba(106, 27, 154, 0.15); /* Sombra roxa suave */
+}
+
+.planName {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.planPrice {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-color); /* Preço Roxo */
+  margin-bottom: 0.25rem;
+}
+
+.planPrice span { /* Para "/mês" ou similar */
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-light);
+}
+
+.planFeatures {
+  list-style: none; /* Remove bolinhas */
+  padding: 0;
+  margin: 1.5rem 0;
+  width: 100%;
+  text-align: left; /* Alinha os itens da lista à esquerda */
+}
+
+.planFeatures li {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.featureIcon {
+  color: var(--secondary-color); /* Ícone amarelo/laranja */
+  font-size: 1.1rem;
+}
+
+.selectButton {
+  background-color: var(--primary-color);
+  color: #FFFFFF;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: auto; /* Empurra o botão para baixo no card flex */
+  width: 80%; /* Botão um pouco mais estreito */
+}
+
+.selectButton:hover {
+  background-color: #5a1782; /* Tom mais escuro */
+}
+
+/* Botão do plano destacado pode ser diferente */
+.featuredCard .selectButton {
+  background-color: var(--secondary-color); /* Botão amarelo/laranja */
+  color: var(--text-dark);
+}
+
+.featuredCard .selectButton:hover {
+  background-color: #f59f00; /* Laranja mais escuro */
+}
+
+/* ... (Seus estilos existentes para .plansPage, .planCard, etc.) ... */
+
+.planFeatures {
+  list-style: none; 
+  padding: 0;
+  margin: 1.5rem 0;
+  width: 100%;
+  text-align: left; 
+
+  /* 👇 ADICIONE ESTA LINHA 👇 */
+  flex-grow: 1; /* Faz a lista ocupar todo o espaço vertical disponível */
+}
+
+.planFeatures li {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-bottom: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* ... (Resto dos seus estilos, incluindo .selectButton com margin-top: auto;) ... */
+
+.selectButton {
+  /* ... (outros estilos) ... */
+  margin-top: auto; /* Esta linha já empurra o botão para baixo */
+  /* ... */
+}

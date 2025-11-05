@@ -1,0 +1,101 @@
+/* src/Componentes/Layout/nav-bar/nav-bar.module.css */
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 5%;
+  background-color: #FFF7E8;
+  box-shadow: 0 2px 8px rgba(175, 54, 54, 0.05);
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  font-family: 'Poppins', sans-serif;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.logo:hover {
+  text-decoration: none;
+}
+
+.navItems {
+  display: flex;
+  gap: 5.0rem;
+}
+
+.loginButton {
+  background-color: var(--primary-color);
+  color: #FFFFFF;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.loginButton:hover {
+  background-color: #f7ca05; /* Tom mais escuro */
+  transform: scale(1.05);
+  text-decoration: none;
+}
+
+/* --- Estilos para o Menu Mobile --- */
+.hamburger {
+  display: none; /* Escondido em telas grandes */
+  flex-direction: column;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background-color: var(--text-dark);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* Media Query para telas pequenas (ex: 768px) */
+@media (max-width: 768px) {
+  .navItems {
+    display: none; /* Esconde os links */
+    flex-direction: column;
+    position: absolute;
+    top: 70px; /* Altura da navbar */
+    left: 0;
+    width: 100%;
+    background-color: var(--card-background);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    padding: 1rem 0;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .navItems.open {
+    display: flex; /* Mostra os links quando o menu está aberto */
+  }
+
+  .hamburger {
+    display: flex; /* Mostra o botão hamburger */
+  }
+
+  /* (Opcional) Animação do hamburger para "X" */
+  .hamburger.open div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  .hamburger.open div:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.open div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+  }
+}

@@ -1,0 +1,48 @@
+/* src/app/globals.css */
+
+/* 1. Variáveis de Cor (Tema MyPetZone) */
+:root {
+  --primary-color: #6D1A1C;     /* Roxo principal */
+  --secondary-color: #F9A825;   /* Laranja/Amarelo (destaque) */
+  --background-light: #FFF7E9;  /* Fundo principal (quase branco) */
+  --card-background: #FFFFFF;     /* Fundo dos cards */
+  --text-dark: #212529;          /* Texto principal */
+  --text-light: #6C757D;         /* Texto secundário */
+  --footer-background: #6D1A1C;   /* Roxo escuro para o footer */
+  --footer-text: #E0E0E0;
+}
+
+/* 2. Reset Básico */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+/* 3. Estilos Globais do Body */
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  background-color: var(--background-light);
+  color: var(--text-dark);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+  /* Estrutura do "Sticky Footer" */
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+/* Tag 'main' para empurrar o footer para baixo */
+main {
+  flex: 1; /* Ocupa todo o espaço disponível */
+  width: 100%;
+}

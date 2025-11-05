@@ -1,0 +1,36 @@
+/* src/Componentes/Layout/footer/footer.module.css */
+
+.footer {
+  width: 100%;
+  background-color: var(--footer-background); /* Variável do globals.css */
+  color: var(--footer-text); /* Variável do globals.css */
+  padding: 2.5rem 2rem;
+  text-align: center;
+  margin-top: auto; /* Garante que ele seja empurrado para o fim */
+  font-family: 'Poppins', sans-serif; /* Usando a fonte Poppins */
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 300; /* Poppins Light */
+  opacity: 0.8;
+}
+
+/* (Opcional) Se você adicionar links ou ícones de redes sociais */
+.socialLinks {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.socialIcon {
+  color: var(--footer-text);
+  font-size: 1.5rem;
+  transition: color 0.2s;
+}
+
+.socialIcon:hover {
+  color: var(--secondary-color); /* Destaque laranja/amarelo */
+}

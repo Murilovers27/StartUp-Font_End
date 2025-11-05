@@ -1,0 +1,53 @@
+/* src/Componentes/Features/PetCard/pet-card.module.css */
+
+.petCard {
+  background-color: var(--card-background);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-sm);
+  overflow: hidden; /* Para conter a imagem arredondada */
+  text-decoration: none; /* Remove sublinhado do Link */
+  color: inherit; /* Remove cor azul do Link */
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.petCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--box-shadow-md);
+}
+
+.petImageContainer {
+  width: 100%;
+  position: relative;
+  /* Define a proporção da imagem (ex: 4:3) */
+  padding-top: 75%; 
+}
+
+/* A imagem (fill) vai preencher este container */
+.petImageContainer > img {
+  border-radius: 12px 12px 0 0; /* Arredonda só cantos de cima */
+}
+
+.petInfo {
+  padding: 1rem;
+}
+
+.petName {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.25rem;
+}
+
+.petDetails {
+  font-size: 0.9rem;
+  color: var(--primary-color); /* Roxo */
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+.petLocation {
+  font-size: 0.85rem;
+  color: var(--text-light);
+}

@@ -1,0 +1,154 @@
+/* src/app/page.module.css */
+
+.pageContainer {
+  width: 100%;
+}
+
+/* --- 1. Seção Hero (baseada na imagem) --- */
+.heroSection {
+  position: relative; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 60vh; 
+  min-height: 450px;
+  color: #FFFFFF;
+  font-family: 'Poppins', sans-serif;
+  /* !! ATENÇÃO !! 
+     Substitua esta URL pela sua imagem de fundo.
+     Coloque sua imagem em /public/hero-bg.jpg e use url('/hero-bg.jpg')
+  */
+  background-image: url('https://images.unsplash.com/photo-1534361960057-19889db9621e?auto=format&fit=crop&w=1920&q=80');
+  background-size: cover;
+  background-position: center 60%; 
+}
+
+/* Sobreposição escura para legibilidade */
+.heroSection::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4); 
+  z-index: 1;
+}
+
+.heroContent {
+  position: relative;
+  z-index: 2; 
+  padding: 1rem;
+}
+
+.heroTitle {
+  font-size: 4.5rem;
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.heroSubtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  max-width: 600px;
+}
+
+/* --- 2. Banner de 3 Cards --- */
+.featureBanner {
+  background-color: var(--primary-color); 
+  padding: 2.5rem 5%;
+}
+
+.bannerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.bannerCardLink {
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-radius: 12px;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: #FFFFFF;
+  transition: background-color 0.2s, transform 0.2s;
+  text-decoration: none;
+}
+
+.bannerCardLink:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-3px);
+}
+
+.bannerIcon {
+  font-size: 2.5rem;
+  color: var(--secondary-color);
+  flex-shrink: 0;
+}
+
+.bannerCardContent h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+.bannerCardContent p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  opacity: 0.9;
+}
+
+/* --- 3. Seção "Sobre" --- */
+.aboutSection {
+  padding: 4.5rem 5%;
+  background-color: var(--background-light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.aboutCard {
+  background-color: var(--card-background);
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: var(--box-shadow-md);
+  max-width: 900px;
+  text-align: center;
+}
+
+.aboutCard h2 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--primary-color); 
+  margin-bottom: 1.5rem;
+}
+
+.aboutCard p {
+  font-size: 1.1rem;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+/* --- 4. Seção "Destaques" (PetCards) --- */
+.petListingsSection {
+  padding: 4.5rem 5%;
+  max-width: 1400px;
+  margin: 0 auto; 
+}
+
+.sectionTitle {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 3rem;
+}
+
+.petGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
