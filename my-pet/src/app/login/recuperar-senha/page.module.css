@@ -1,0 +1,118 @@
+/* src/app/login/recuperar-senha/page.module.css */
+
+/* Reutilizando os estilos do login para consistência */
+.recoveryPage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Altura da página */
+  padding: 2rem 1rem;
+  background-color: var(--background-light);
+}
+
+.recoveryCard {
+  background-color: var(--card-background);
+  padding: 2.5rem 3rem;
+  border-radius: 16px;
+  box-shadow: var(--box-shadow-md);
+  width: 100%;
+  max-width: 450px; /* Largura do card */
+  text-align: center;
+}
+
+.title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-bottom: 2rem;
+}
+
+.form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* (Pode reutilizar o .inputGroup e .inputIcon do login.css) */
+.inputGroup {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+.inputIcon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+}
+.input {
+  width: 100%;
+  padding: 0.8rem 1rem 0.8rem 40px; /* Padding para o ícone */
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.submitButton {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.submitButton:hover:not(:disabled) {
+  background-color: var(--primary-darker);
+}
+
+/* Mensagem de Erro */
+.errorMessage {
+  color: var(--danger-color, #dc3545);
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* Mensagem de Sucesso (NOVO) */
+.successMessage {
+  color: var(--success-color, #28a745);
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 1px solid var(--success-color, #28a745);
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.backLink {
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+.backLink:hover {
+  text-decoration: underline;
+}
