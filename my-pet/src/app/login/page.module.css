@@ -152,3 +152,42 @@
 .signupLink span:hover {
   text-decoration: underline;
 }
+
+/* Adicione estas classes ao final do seu src/app/login/page.module.css */
+
+/* 1. Garanta que o .inputGroup possa conter um ícone absoluto */
+.inputGroup {
+  position: relative;
+  /* (Mantenha o 'width' e 'margin-bottom' que você já tem) */
+}
+
+/* 2. Estilo para o novo ícone de "olho" */
+.passwordToggleIcon {
+  position: absolute;
+  right: 15px; /* Posição à direita */
+  top: 68%;
+  transform: translateY(-50%);
+  
+  /* Estilização para parecer um botão 'fantasma' */
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #aaa; /* Cor do ícone */
+  font-size: 1rem;
+  padding: 0; /* Remove padding */
+}
+
+.passwordToggleIcon:hover {
+  color: #333; /* Cor mais escura no hover */
+}
+
+/* 3. Ajuste no Input para não sobrepor os ícones */
+.loginInput {
+  /* (Mantenha seus estilos de padding, border, etc.) */
+  
+  /* Nós já tínhamos padding-left para o ícone da esquerda */
+  padding-left: 40px !important; 
+  
+  /* NOVO: Adiciona padding-right para o ícone da direita */
+  padding-right: 40px !important; 
+}
