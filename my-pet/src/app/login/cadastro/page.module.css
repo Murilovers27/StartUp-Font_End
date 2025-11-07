@@ -1,95 +1,195 @@
-/* src/app/signup/page.module.css */
+/* src/app/login/cadastro/page.module.css */
 
-.signupPage {
+.cadastroPage {
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  width: 100%;
+  align-items: center;
+  min-height: 80vh;
   padding: 4rem 1rem;
-  font-family: 'Poppins', sans-serif;
+  background-color: var(--background-light);
 }
 
-.signupCard {
+.cadastroCard {
   background-color: var(--card-background);
-  padding: 2.5rem;
+  padding: 2.5rem 3rem;
   border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--box-shadow-md);
   width: 100%;
-  max-width: 480px; /* Um pouco mais largo que o login */
+  max-width: 600px; /* Card de cadastro pode ser mais largo */
   text-align: center;
 }
 
 .title {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-weight: 600;
   color: var(--text-dark);
-  margin-bottom: 0.5rem;
-}
-
-.subtitle {
-  font-size: 1rem;
-  font-weight: 400;
-  color: var(--text-light);
   margin-bottom: 2rem;
 }
 
 .form {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  align-items: center;
 }
 
-/* --- Este é o novo padrão com ícone, inspirado na sua imagem --- */
-.inputGroup {
-  position: relative; /* Necessário para posicionar o ícone */
+/* Título para separar seções do formulário */
+.formSectionTitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--primary-color);
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--border-color);
   width: 100%;
+  text-align: left;
+  padding-bottom: 0.5rem;
+}
+/* Remove margin-top do primeiro título */
+.formSectionTitle:first-of-type {
+  margin-top: 0;
 }
 
-.inputIcon {
-  position: absolute;
-  top: 50%;
-  left: 15px;
-  transform: translateY(-50%);
-  color: var(--text-light);
-  font-size: 1.2rem;
-}
-
+/* Estilo base do input */
 .input {
   width: 100%;
-  padding: 0.8rem 1rem 0.8rem 3rem; /* Padding esquerdo maior para o ícone */
-  font-size: 1rem;
-  border: 1px solid #ced4da;
+  padding: 0.8rem 1rem;
+  margin-bottom: 1.2rem;
+  border: 1px solid var(--border-color);
   border-radius: 8px;
+  font-size: 1rem;
   font-family: 'Poppins', sans-serif;
-  background-color: #f8f9fa; /* Fundo cinza claro como na imagem */
-  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.input:focus {
-  outline: none;
-  border-color: var(--primary-color);
-  box-shadow: 0 0 0 3px rgba(106, 27, 154, 0.2);
-  background-color: var(--card-background); /* Fundo branco ao focar */
+/* --- SEÇÃO DOS ÍCONES E INPUTS --- 
+*/
+
+/* Wrapper para campos com ícones (Senha e CEP) */
+.inputGroup {
+  position: relative;
+  width: 100%;
+  margin-bottom: 1.2rem; /* A margem vai no grupo, não no input */
 }
-/* ----------------------------------------------------------- */
+
+/* Ajusta o input que está dentro de um grupo */
+.inputGroup .input {
+  padding-right: 40px !important; /* Espaço para o ícone da direita */
+  margin-bottom: 0; /* Remove a margem (já está no .inputGroup) */
+}
+
+/* Ícone de "Olho" (é um botão) */
+.passwordToggleIcon {
+  position: absolute;
+  right: 15px; 
+  top: 50%;
+  transform: translateY(-50%);
+  
+  /* Estilos de botão */
+  background: none;
+  border: none;
+  cursor: pointer;
+  
+  /* Estilos do ícone */
+  color: #aaa;
+  font-size: 1rem;
+}
+
+/* Ícone de "Spinner" (é um ícone) */
+.spinnerIcon {
+  position: absolute;
+  right: 15px; 
+  top: 50%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 1rem;
+  
+  /* Animação de rotação */
+  animation: spin 1s linear infinite;
+}
+
+/* Animação de rotação para o spinner */
+@keyframes spin {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+/* Estilo para campos auto-preenchidos (Rua, Bairro, etc.) */
+.input:read-only {
+  background-color: #f0f0f0; /* Um cinza claro */
+  color: #777; 
+  cursor: not-allowed;
+  border-color: #ddd;
+}
+
+
+/* --- SEÇÃO DE ALERTAS --- 
+*/
+
+/* Alerta de Erro Geral (Vermelho, Grande) */
+.errorMessage {
+  color: var(--danger-color, #dc3545);
+  background-color: rgba(220, 53, 69, 0.1);
+  border: 1px solid var(--danger-color, #dc3545);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+/* Alerta de Erro do CEP (Vermelho, Pequeno) */
+.cepErrorMessage {
+  color: var(--danger-color, #dc3545);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-align: left;
+  width: 100%;
+  margin-top: -0.8rem; /* Puxa para perto do campo de CEP */
+  margin-bottom: 1rem;
+}
+
+/* Alerta de Sucesso (Verde) */
+.successMessage {
+  color: var(--success-color, #28a745);
+  background-color: rgba(40, 167, 69, 0.1);
+  border: 1px solid var(--success-color, #28a745);
+  border-radius: 8px;
+  padding: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+
+/* --- BOTÃO E LINKS --- 
+*/
 
 .submitButton {
-  background-color: var(--primary-color);
-  color: #FFFFFF;
-  padding: 0.8rem;
+  width: 100%;
+  padding: 0.8rem 1rem;
   border: none;
   border-radius: 8px;
+  background-color: var(--primary-color);
+  color: var(--text-on-primary);
+  font-size: 1rem;
   font-weight: 500;
-  font-size: 1.1rem;
   cursor: pointer;
-  transition: background-color 0.2s;
-  width: 100%;
-  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+  margin-top: 1rem;
 }
-
-.submitButton:hover {
-  background-color: #5a1782;
+.submitButton:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+.submitButton:hover:not(:disabled) {
+  background-color: var(--primary-darker);
 }
 
 .loginLink {
@@ -97,20 +197,11 @@
   font-size: 0.9rem;
   color: var(--text-light);
 }
-
 .loginLink span {
   color: var(--primary-color);
   font-weight: 500;
-  text-decoration: underline;
   cursor: pointer;
 }
-
-.addressTitle {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: var(--text-dark);
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-  text-align: left;
-  width: 100%;
+.loginLink span:hover {
+  text-decoration: underline;
 }

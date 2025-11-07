@@ -33,6 +33,7 @@ export interface UserCreateRequest {
   phone: string;
   cpfCnpj: string;
   role: 'CLIENTE' | 'FUNCIONARIO' | 'ADMINISTRADOR' | 'EMPRESA';
+  password: string;
   address: {
     street: string;
     number: string;
