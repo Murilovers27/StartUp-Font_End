@@ -47,19 +47,30 @@
   align-items: center;
   text-align: center;
   border: 2px solid transparent; /* Para o destaque */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  
+  /* 👇 SUA MUDANÇA (1/2): Adicionada 'border-color' à transição */
+  transition: transform 0.2s ease, 
+              box-shadow 0.2s ease,
+              border-color 0.2s ease;
 }
 
+/* Hover de flutuar (para TODOS os cards) */
+/* Hover de flutuar (para TODOS os cards) */
 .planCard:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+ transform: translateY(-5px);
+ box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  border-color: var(--primary-color); /* <-- ADICIONE ESTA LINHA */
 }
 
 /* Estilo para um plano destacado (ex: "Mais Popular") */
 .featuredCard {
-  border-color: var(--primary-color); /* Borda roxa */
-  transform: scale(1.03); /* Levemente maior */
-  box-shadow: 0 8px 30px rgba(106, 27, 154, 0.15); /* Sombra roxa suave */
+
+}
+
+/* 👇 SUA MUDANÇA (2/2): Borda aparece no hover (APENAS se não for o .featuredCard) */
+/* 👇 MUDANÇA 2: Delete esta regra inteira */
+.planCard:not(.featuredCard):hover {
+ border-color: var(--primary-color);
 }
 
 .planName {
@@ -88,6 +99,7 @@
   margin: 1.5rem 0;
   width: 100%;
   text-align: left; /* Alinha os itens da lista à esquerda */
+  flex-grow: 1; /* Faz a lista crescer para alinhar os botões */
 }
 
 .planFeatures li {
@@ -119,7 +131,7 @@
 }
 
 .selectButton:hover {
-  background-color: #5a1782; /* Tom mais escuro */
+  background-color: #f59f00; /* Tom mais escuro */
 }
 
 /* Botão do plano destacado pode ser diferente */
@@ -130,34 +142,4 @@
 
 .featuredCard .selectButton:hover {
   background-color: #f59f00; /* Laranja mais escuro */
-}
-
-/* ... (Seus estilos existentes para .plansPage, .planCard, etc.) ... */
-
-.planFeatures {
-  list-style: none; 
-  padding: 0;
-  margin: 1.5rem 0;
-  width: 100%;
-  text-align: left; 
-
-  /* 👇 ADICIONE ESTA LINHA 👇 */
-  flex-grow: 1; /* Faz a lista ocupar todo o espaço vertical disponível */
-}
-
-.planFeatures li {
-  font-size: 0.95rem;
-  color: var(--text-light);
-  margin-bottom: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-/* ... (Resto dos seus estilos, incluindo .selectButton com margin-top: auto;) ... */
-
-.selectButton {
-  /* ... (outros estilos) ... */
-  margin-top: auto; /* Esta linha já empurra o botão para baixo */
-  /* ... */
 }

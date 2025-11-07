@@ -165,7 +165,7 @@
 .passwordToggleIcon {
   position: absolute;
   right: 15px; /* Posição à direita */
-  top: 68%;
+  top: 58%;
   transform: translateY(-50%);
   
   /* Estilização para parecer um botão 'fantasma' */
@@ -183,11 +183,19 @@
 
 /* 3. Ajuste no Input para não sobrepor os ícones */
 .loginInput {
-  /* (Mantenha seus estilos de padding, border, etc.) */
+  /* (Mantenha seus estilos de padding, border, etcinputIcon) */
   
   /* Nós já tínhamos padding-left para o ícone da esquerda */
   padding-left: 40px !important; 
   
   /* NOVO: Adiciona padding-right para o ícone da direita */
   padding-right: 40px !important; 
+}
+
+.inputIcon {
+  position: absolute;
+  left: 15px;
+  top: 53%;
+  transform: translateY(-50%);
+  color: #aaa;
 }

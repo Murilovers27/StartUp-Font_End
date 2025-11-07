@@ -41,6 +41,11 @@ export default function HomePage() {
           <p className={styles.heroSubtitle}>
             Tudo o que seu melhor amigo precisa em um só lugar.
           </p>
+          
+          {/* --- (INÍCIO DA ALTERAÇÃO 1) Botões do Hero --- */}
+          
+          {/* --- (FIM DA ALTERAÇÃO 1) --- */}
+
         </div>
       </section>
 
@@ -104,6 +109,22 @@ export default function HomePage() {
           ))}
         </div>
       </section>
+
+      {/* --- (INÍCIO DA ALTERAÇÃO 2) Seção CTA Final --- */}
+      <section className={styles.ctaSection}>
+        <div className={styles.ctaContent}>
+          <h2 className={styles.ctaTitle}>
+            Pronto para simplificar a vida do seu pet?
+          </h2>
+          <p className={styles.ctaText}>
+            Junte-se a milhares de tutores e gerencie tudo em um só lugar.
+          </p>
+          <Link href="/login/cadastro" className={styles.ctaButton}>
+            Crie sua conta grátis agora
+          </Link>
+        </div>
+      </section>
+      {/* --- (FIM DA ALTERAÇÃO 2) --- */}
       
     </div>
   );
