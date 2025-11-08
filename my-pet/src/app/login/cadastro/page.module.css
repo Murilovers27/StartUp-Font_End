@@ -6,23 +6,25 @@
   align-items: center;
   min-height: 80vh;
   padding: 4rem 1rem;
-  background-color: var(--background-light);
+  /* Usa a cor de fundo global (creme) */
+  background-color: var(--background-light); 
 }
 
 .cadastroCard {
-  background-color: var(--card-background);
+  /* Usa o fundo de card global (branco) */
+  background-color: var(--card-background); 
   padding: 2.5rem 3rem;
   border-radius: 16px;
-  box-shadow: var(--box-shadow-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Sombra suave */
   width: 100%;
-  max-width: 600px; /* Card de cadastro pode ser mais largo */
+  max-width: 600px;
   text-align: center;
 }
 
 .title {
   font-size: 1.8rem;
   font-weight: 600;
-  color: var(--text-dark);
+  color: var(--text-dark); /* Usa o texto escuro global */
   margin-bottom: 2rem;
 }
 
@@ -33,19 +35,18 @@
   align-items: center;
 }
 
-/* Título para separar seções do formulário */
+/* Título para separar seções (usa a cor primária Vinho/Bordô) */
 .formSectionTitle {
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--primary-color);
   margin-top: 1.5rem;
   margin-bottom: 1rem;
-  border-bottom: 1px solid var(--border-color);
+  border-bottom: 1px solid #dee2e6; /* Borda cinza claro */
   width: 100%;
   text-align: left;
   padding-bottom: 0.5rem;
 }
-/* Remove margin-top do primeiro título */
 .formSectionTitle:first-of-type {
   margin-top: 0;
 }
@@ -55,59 +56,51 @@
   width: 100%;
   padding: 0.8rem 1rem;
   margin-bottom: 1.2rem;
-  border: 1px solid var(--border-color);
+  border: 1px solid #ced4da; /* Borda cinza padrão */
   border-radius: 8px;
   font-size: 1rem;
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Poppins', sans-serif; /* (Mantido, mas o global é -apple-system) */
+  color: var(--text-dark); /* Texto digitado é escuro */
+  background-color: #FFFFFF; /* Fundo do input é branco */
 }
 
-/* --- SEÇÃO DOS ÍCONES E INPUTS --- 
-*/
+/* Placeholder usa a cor de texto clara global */
+.input::placeholder {
+  color: var(--text-light);
+  opacity: 1; 
+}
 
-/* Wrapper para campos com ícones (Senha e CEP) */
+
+/* --- SEÇÃO DOS ÍCONES E INPUTS --- */
+
 .inputGroup {
   position: relative;
   width: 100%;
-  margin-bottom: 1.2rem; /* A margem vai no grupo, não no input */
+  margin-bottom: 1.2rem; 
 }
-
-/* Ajusta o input que está dentro de um grupo */
 .inputGroup .input {
-  padding-right: 40px !important; /* Espaço para o ícone da direita */
-  margin-bottom: 0; /* Remove a margem (já está no .inputGroup) */
+  padding-right: 40px !important; 
+  margin-bottom: 0; 
 }
 
-/* Ícone de "Olho" (é um botão) */
-.passwordToggleIcon {
+/* Ícones de Olho e Spinner (cinza médio) */
+.passwordToggleIcon, .spinnerIcon {
   position: absolute;
   right: 15px; 
   top: 50%;
   transform: translateY(-50%);
-  
-  /* Estilos de botão */
+  color: #aaa;
+  font-size: 1rem;
+}
+.passwordToggleIcon {
   background: none;
   border: none;
   cursor: pointer;
-  
-  /* Estilos do ícone */
-  color: #aaa;
-  font-size: 1rem;
 }
-
-/* Ícone de "Spinner" (é um ícone) */
 .spinnerIcon {
-  position: absolute;
-  right: 15px; 
-  top: 50%;
-  transform: translateY(-50%);
-  color: #aaa;
-  font-size: 1rem;
-  
-  /* Animação de rotação */
   animation: spin 1s linear infinite;
 }
 
-/* Animação de rotação para o spinner */
 @keyframes spin {
   from {
     transform: translateY(-50%) rotate(0deg);
@@ -117,67 +110,58 @@
   }
 }
 
-/* Estilo para campos auto-preenchidos (Rua, Bairro, etc.) */
+/* Campos auto-preenchidos (fundo cinza) */
 .input:read-only {
-  background-color: #f0f0f0; /* Um cinza claro */
-  color: #777; 
+  background-color: #e9ecef; /* Cinza claro (padrão Bootstrap) */
+  color: #495057; 
   cursor: not-allowed;
-  border-color: #ddd;
+  border-color: #ced4da;
 }
 
 
-/* --- SEÇÃO DE ALERTAS --- 
-*/
-
-/* Alerta de Erro Geral (Vermelho, Grande) */
+/* --- SEÇÃO DE ALERTAS --- */
+/* (Cores de Alerta mantidas por semântica) */
 .errorMessage {
   color: var(--danger-color, #dc3545);
   background-color: rgba(220, 53, 69, 0.1);
   border: 1px solid var(--danger-color, #dc3545);
-  border-radius: 8px;
-  padding: 0.75rem 1rem;
   font-size: 0.9rem;
   font-weight: 500;
   text-align: center;
   margin-bottom: 1rem;
   width: 100%;
+  padding: 0.75rem 1rem;
 }
-
-/* Alerta de Erro do CEP (Vermelho, Pequeno) */
 .cepErrorMessage {
   color: var(--danger-color, #dc3545);
   font-size: 0.85rem;
   font-weight: 500;
   text-align: left;
   width: 100%;
-  margin-top: -0.8rem; /* Puxa para perto do campo de CEP */
+  margin-top: -0.8rem; 
   margin-bottom: 1rem;
 }
-
-/* Alerta de Sucesso (Verde) */
 .successMessage {
   color: var(--success-color, #28a745);
   background-color: rgba(40, 167, 69, 0.1);
   border: 1px solid var(--success-color, #28a745);
-  border-radius: 8px;
-  padding: 1rem;
   font-size: 1rem;
   font-weight: 500;
   text-align: center;
   margin: 1rem 0;
+  padding: 1rem;
 }
 
 
-/* --- BOTÃO E LINKS --- 
-*/
+/* --- BOTÃO E LINKS --- */
 
 .submitButton {
   width: 100%;
   padding: 0.8rem 1rem;
   border: none;
   border-radius: 8px;
-  background-color: var(--primary-color);
-  color: var(--text-on-primary);
+  background-color: var(--primary-color); /* Cor primária (Vinho/Bordô) */
+  color: #FFFFFF; /* Texto do botão (branco) */
   font-size: 1rem;
   font-weight: 500;
   cursor: pointer;
@@ -189,16 +173,18 @@
   cursor: not-allowed;
 }
 .submitButton:hover:not(:disabled) {
-  background-color: var(--primary-darker);
+  /* Escurece a cor primária no hover */
+  background-color: #521415; 
 }
 
+/* Link para Login (usa texto claro global) */
 .loginLink {
   margin-top: 1.5rem;
   font-size: 0.9rem;
   color: var(--text-light);
 }
 .loginLink span {
-  color: var(--primary-color);
+  color: var(--primary-color); /* Link de ênfase (Vinho/Bordô) */
   font-weight: 500;
   cursor: pointer;
 }

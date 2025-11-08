@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic'; // Para carregar o mapa dinamicamente
 import styles from './page.module.css';
+import 'leaflet/dist/leaflet.css';
 
 // 1. Importe a API
 import { getCompanies, UserResponse } from '@/lib/api'; 
@@ -10,9 +11,7 @@ import { getCompanies, UserResponse } from '@/lib/api';
 
 // 2. Importe o CSS do Leaflet (CRUCIAL!)
 // Precisamos "enganar" o Next.js para importar o CSS apenas no cliente
-if (typeof window !== 'undefined') {
-  require('leaflet/dist/leaflet.css');
-}
+
 
 // 3. Carregue o Mapa dinamicamente (para evitar erros de SSR)
 // Isso garante que o componente do mapa só seja carregado no navegador
