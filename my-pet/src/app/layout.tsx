@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-
-
-// 1. CORREÇÃO: O nome do arquivo na sua árvore é 'globals.css'
 import "./globals.css"; 
 
-// 2. Imports dos componentes (Seus caminhos estão corretos)
+// 1. IMPORTE O AuthProvider
+import { AuthProvider } from "@/contexts/AuthContext";
+
 import Navbar from "../componentes/layout/navBar";
 import Footer from "../componentes/layout/footer"; 
 
@@ -37,16 +36,18 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={poppins.className}>
-        <Navbar />
         
-        {/* 3. CORREÇÃO: Adicionada a tag <main>
-            Isso é essencial para o CSS do "sticky footer" funcionar. 
-        */}
-        <main>
-          {children}
-        </main>
+        {/* 2. "ABRACE" TUDO COM O AuthProvider */}
+        <AuthProvider>
+          <Navbar />
+          
+          <main>
+            {children}
+          </main>
+          
+          <Footer />
+        </AuthProvider>
         
-        <Footer />
       </body>
     </html>
   );

@@ -1,114 +1,139 @@
-"use client"; 
+"use client";
 
-import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation'; // <-- Importa do Next.js
 import Link from 'next/link';
-import { useRouter } from 'next/navigation'; 
+import { useState } from 'react';
+import { FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa';
+
+import { useAuth } from '@/contexts/AuthContext'; // <-- O "Cofre"
+import { LoginRequest } from '@/lib/interfaces'; // <-- A "Interface"
 import styles from './page.module.css';
-import { loginUser } from '@/lib/api'; 
-// 1. NOVO: Importe os ícones de olho
-import { FaUser, FaLock, FaEye, FaEyeSlash } from 'react-icons/fa'; 
 
-const LoginPage: React.FC = () => {
-  const router = useRouter(); 
+// O tipo de dados do nosso formulário
+type FormData = LoginRequest;
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false); 
-  const [error, setError] = useState<string | null>(null); 
-  // 2. NOVO: Estado para controlar a visibilidade da senha
+export default function LoginPage() {
+  const router = useRouter();
+  const { login } = useAuth(); // <-- Pega a função 'login' do cofre
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null); 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+    setError, // <-- Para definir erros vindos da API
+  } = useForm<FormData>({
+    mode: 'onBlur', // Valida quando o usuário sai do campo
+  });
 
-    if (!email || !password) {
-      setError("Por favor, preencha o e-mail e a senha.");
-      return; 
-    }
-
-    setLoading(true);
-
+  // Esta função é chamada pelo react-hook-form
+  const onSubmit = async (data: FormData) => {
     try {
-      const response = await loginUser({ email, password });
-      console.log("Login bem-sucedido:", response.token);
+      // 1. Chama a função login do AuthContext
+      await login(data);
+      
+      // 2. Se o login deu certo (não deu 'throw'), redireciona
+      // (O redirecionamento também pode estar no seu AuthContext,
+      // mas podemos forçá-lo aqui)
       router.push('/login/pagina-usuario'); 
 
-    } catch (err: any) {
-      console.error("Falha no login:", err);
-      setError(err.message || "E-mail ou senha incorretos.");
-    } finally {
-      setLoading(false); 
+    } catch (error) {
+      // 3. Se o login falhou, o AuthContext lança um erro
+      const errorMessage =
+        error instanceof Error ? error.message : 'Erro ao realizar login';
+      
+      // Define um erro global no formulário
+      setError('root', {
+        type: 'manual',
+        message: errorMessage,
+      });
     }
   };
 
   return (
-    <div className={styles.loginPageContainer}>
-      <div className={styles.loginFormWrapper}>
-        <h1 className={styles.loginTitle}>Acessar MyPetZone</h1>
-        <p className={styles.loginSubtitle}>Bem-vindo de volta!</p>
-        
-        <form onSubmit={handleSubmit} className={styles.loginForm}>
+    <div className={styles.loginPage}>
+      <div className={styles.loginCard}>
+        <h1 className={styles.title}>Login</h1>
+        <p className={styles.subtitle}>Acesse sua conta MyPetZone</p>
+
+        {/* O 'handleSubmit' do react-hook-form chama o 'onSubmit' */}
+        <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
           
           <div className={styles.inputGroup}>
-            <span className={styles.inputIcon}><FaUser /></span>
-            <input 
-              type="email" 
-              placeholder="E-mail" 
-              className={styles.loginInput}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              disabled={loading} 
+            <FaUser className={styles.icon} />
+            <input
+              id="email"
+              type="email"
+              className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+              placeholder="E-mail"
+              autoComplete="email"
+              {...register('email', {
+                required: 'Email é obrigatório',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Endereço de e-mail inválido',
+                },
+              })}
             />
           </div>
+          {errors.email && (
+            <span className={styles.errorMessage}>{errors.email.message}</span>
+          )}
 
           <div className={styles.inputGroup}>
-            <span className={styles.inputIcon}><FaLock /></span>
-            <input 
-              // 3. NOVO: O 'type' agora é dinâmico
+            <FaLock className={styles.icon} />
+            <input
+              id="password"
               type={showPassword ? 'text' : 'password'}
-              placeholder="Senha" 
-              className={styles.loginInput}
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={loading}
+              className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
+              placeholder="Senha"
+              autoComplete="current-password"
+              {...register('password', {
+                required: 'Senha é obrigatória',
+              })}
             />
-            {/* 4. NOVO: Botão que alterna o estado */}
             <button
-              type="button" 
-              className={styles.passwordToggleIcon}
+              type="button"
+              className={styles.passwordToggle}
               onClick={() => setShowPassword(!showPassword)}
             >
               {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
           </div>
-
-          {error && (
-            <p className={styles.errorMessage}>{error}</p>
+          {errors.password && (
+            <span className={styles.errorMessage}>{errors.password.message}</span>
           )}
 
-          <button 
-            type="submit" 
-            className={styles.loginButton}
-            disabled={loading}
+          {/* Exibe o erro da API (ex: "Email ou senha incorretos") */}
+          {errors.root && (
+            <div className={styles.errorMessageRoot} role="alert">
+              {errors.root.message}
+            </div>
+          )}
+
+          <div className={styles.links}>
+            <Link href="/login/recuperar-senha" className={styles.forgotPassword}>
+              Esqueceu a senha?
+            </Link>
+          </div>
+
+          <button
+            type="submit"
+            className={styles.submitButton}
+            disabled={isSubmitting}
           >
-            {loading ? 'Entrando...' : 'Entrar'}
+            {isSubmitting ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
 
-        <div className={styles.linksContainer}>
-          <Link href="/login/recuperar-senha" className={styles.forgotPasswordLink}>
-            Esqueci a senha
+        <p className={styles.registerLink}>
+          Não tem uma conta?{' '}
+          <Link href="/login/cadastro">
+            <span>Cadastre-se</span>
           </Link>
-          <p className={styles.signupLink}>
-            Não tem conta? 
-            <Link href="/login/cadastro"> Cadastre-se</Link>
-          </p>
-        </div>
-
+        </p>
       </div>
     </div>
   );
-};
-
-export default LoginPage;
+}
