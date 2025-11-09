@@ -6,12 +6,10 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
-// 1. IMPORTA O CLIENTE SUPABASE (O NOVO "MOTOR")
 import { supabase } from '@/lib/supabaseClient'; 
 import { RegisterClientRequest } from '@/lib/interfaces';
 import styles from './page.module.css';
 
-// O FormData não muda
 type FormData = Omit<RegisterClientRequest, 'role'>;
 
 export default function RegisterClientPage() {
@@ -19,11 +17,14 @@ export default function RegisterClientPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  // <-- MUDANÇA 1: Adicionar 'setValue' e 'getValues'
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    setValue, // <-- Adicionado para o ViaCEP
+    getValues // <-- Adicionado para o ViaCEP
   } = useForm<FormData>({
     mode: 'onBlur',
     defaultValues: {
@@ -31,7 +32,7 @@ export default function RegisterClientPage() {
     },
   });
 
-  // 2. O 'onSubmit' FOI TOTALMENTE ALTERADO PARA USAR O SUPABASE
+  // O 'onSubmit' (lógica do Supabase) está perfeito, não muda
   const onSubmit = async (data: FormData) => {
     try {
       // 2a. Primeiro, cria o usuário no serviço de AUTENTICAÇÃO
@@ -73,7 +74,6 @@ export default function RegisterClientPage() {
       // 3. Sucesso!
       setSuccessMessage('Cadastro realizado com sucesso! Verifique o seu e-mail para confirmar a conta.');
       
-      // (O Supabase envia um email de confirmação por padrão. Lembre-se de desativar se for só para teste)
       setTimeout(() => {
         router.push('/login');
       }, 3000);
@@ -90,6 +90,39 @@ export default function RegisterClientPage() {
       } else {
         setError('root', { type: 'manual', message: errorMessage });
       }
+    }
+  };
+
+  // <-- MUDANÇA 2: Adicionar a função 'checkCep'
+  const checkCep = async () => {
+    const cep = getValues('address.zipCode'); // Pega o valor do CEP
+    if (!cep) return;
+
+    const cleanedCep = cep.replace(/\D/g, ''); // Limpa (tira hífens, etc.)
+
+    if (cleanedCep.length !== 8) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://viacep.com.br/ws/${cleanedCep}/json/`);
+      const data = await res.json();
+
+      if (data.erro) {
+        // CEP não encontrado
+        setError('address.zipCode', { type: 'manual', message: 'CEP não encontrado.' });
+        return;
+      }
+
+      // PREENCHE O FORMULÁRIO
+      setValue('address.street', data.logradouro, { shouldValidate: true });
+      setValue('address.neighborhood', data.bairro, { shouldValidate: true });
+      setValue('address.city', data.localidade, { shouldValidate: true });
+      setValue('address.state', data.uf, { shouldValidate: true });
+      
+    } catch (error) {
+      console.error("Erro ao buscar CEP:", error);
+      setError('address.zipCode', { type: 'manual', message: 'Erro ao buscar CEP.' });
     }
   };
 
@@ -119,7 +152,8 @@ export default function RegisterClientPage() {
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-          {/* --- Seção 1: Dados Pessoais --- */}
+          
+          {/* --- Seção 1: Dados Pessoais (AGORA VISÍVEL) --- */}
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>Dados Pessoais</h2>
 
@@ -224,6 +258,8 @@ export default function RegisterClientPage() {
                 className={`${styles.input} ${errors.address?.zipCode ? styles.inputError : ''}`}
                 placeholder="12345-678"
                 {...register('address.zipCode', { required: 'CEP é obrigatório' })}
+                // <-- MUDANÇA 3: Adicionar o 'onBlur'
+                onBlur={checkCep} 
               />
               {errors.address?.zipCode && (
                 <span className={styles.errorMessage}><span>⚠</span> {errors.address.zipCode.message}</span>

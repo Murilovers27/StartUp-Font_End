@@ -40,11 +40,14 @@ export default function RegisterCompanyPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
 
+  // <-- MUDANÇA 1: Adicionar 'setValue' e 'getValues'
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
     setError,
+    setValue, // <-- Adicionado para o ViaCEP
+    getValues // <-- Adicionado para o ViaCEP
   } = useForm<RegisterCompanyRequest>({
     mode: 'onBlur',
     defaultValues: {
@@ -54,7 +57,7 @@ export default function RegisterCompanyPage() {
     },
   });
 
-  // 2. O 'onSubmit' FOI TOTALMENTE ALTERADO PARA USAR O SUPABASE
+  // O 'onSubmit' (lógica do Supabase) está perfeito, não muda
   const onSubmit = async (data: RegisterCompanyRequest) => {
     try {
       // 2a. Primeiro, cria o usuário no serviço de AUTENTICAÇÃO
@@ -77,15 +80,13 @@ export default function RegisterCompanyPage() {
       // 2b. Agora, guarda os dados extra na BASE DE DADOS (tabela 'profiles')
       console.log("[CadastroEmpresa] 📞 A guardar dados extra na tabela 'profiles'...");
       
-      // Mapeia os nomes do formulário (camelCase) para os nomes da tabela (snake_case)
       const profileData = {
         id: authData.user.id,
         name: data.name,
         phone: data.phone,
-        cpf_cnpj: data.cpfCnpj, // Assumindo que a coluna é 'cpf_cnpj'
+        cpf_cnpj: data.cpfCnpj, 
         role: 'EMPRESA',
         address: data.address as any,
-        // Dados específicos da Empresa
         company_name: data.companyName,
         trade_name: data.tradeName,
         contact_person: data.contactPerson,
@@ -125,8 +126,39 @@ export default function RegisterCompanyPage() {
     }
   };
 
-  // O resto da página (o 'return' com o JSX) não muda
-  
+  // <-- MUDANÇA 2: Adicionar a função 'checkCep'
+  const checkCep = async () => {
+    const cep = getValues('address.zipCode'); // Pega o valor do CEP
+    if (!cep) return;
+
+    const cleanedCep = cep.replace(/\D/g, ''); // Limpa (tira hífens, etc.)
+
+    if (cleanedCep.length !== 8) {
+      return;
+    }
+
+    try {
+      const res = await fetch(`https://viacep.com.br/ws/${cleanedCep}/json/`);
+      const data = await res.json();
+
+      if (data.erro) {
+        setError('address.zipCode', { type: 'manual', message: 'CEP não encontrado.' });
+        return;
+      }
+
+      // PREENCHE O FORMULÁRIO
+      setValue('address.street', data.logradouro, { shouldValidate: true });
+      setValue('address.neighborhood', data.bairro, { shouldValidate: true });
+      setValue('address.city', data.localidade, { shouldValidate: true });
+      setValue('address.state', data.uf, { shouldValidate: true });
+      
+    } catch (error) {
+      console.error("Erro ao buscar CEP:", error);
+      setError('address.zipCode', { type: 'manual', message: 'Erro ao buscar CEP.' });
+    }
+  };
+
+  // O 'return' do JSX de sucesso não muda
   if (successMessage) {
     return (
       <div className={styles.pageContainer}>
@@ -141,11 +173,10 @@ export default function RegisterCompanyPage() {
     );
   }
 
+  // O 'return' do formulário
   return (
     <div className={styles.pageContainer}>
       <div className={styles.formCard}>
-        {/* ... (O seu JSX de <header> e <form> continua aqui) ... */}
-        {/* O 'handleSubmit(onSubmit)' vai agora chamar a nossa nova função Supabase */}
         
         <div className={styles.header}>
           <h1 className={styles.title}>Cadastro de Empresa</h1>
@@ -155,7 +186,8 @@ export default function RegisterCompanyPage() {
         </div>
 
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)} noValidate>
-          {/* --- Seção 1: Dados Pessoais --- */}
+          
+          {/* --- Seção 1: Dados Pessoais (AGORA VISÍVEL) --- */}
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>Dados do Responsável</h2>
 
@@ -248,7 +280,7 @@ export default function RegisterCompanyPage() {
             </div>
           </div>
 
-          {/* --- Seção 2: Dados da Empresa --- */}
+          {/* --- Seção 2: Dados da Empresa (AGORA VISÍVEL) --- */}
           <div className={styles.section}>
             <h2 className={styles.sectionTitle}>Dados da Empresa</h2>
             
@@ -339,6 +371,8 @@ export default function RegisterCompanyPage() {
                 className={`${styles.input} ${errors.address?.zipCode ? styles.inputError : ''}`}
                 placeholder="12345-678"
                 {...register('address.zipCode', { required: 'CEP é obrigatório' })}
+                // <-- MUDANÇA 3: Adicionar o 'onBlur'
+                onBlur={checkCep} 
               />
               {errors.address?.zipCode && (
                 <span className={styles.errorMessage}><span>⚠</span> {errors.address.zipCode.message}</span>
