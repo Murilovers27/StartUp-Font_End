@@ -121,6 +121,7 @@
   font-size: 0.9rem;
   color: var(--primary-color);
   text-decoration: none;
+  
 }
 .forgotPassword:hover {
   text-decoration: underline;
